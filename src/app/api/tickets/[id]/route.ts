@@ -20,6 +20,8 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
   try {
     const data = await req.json();
+    data.datetime = new Date(data.datetime)
+    data.closetime = new Date(data.closetime)
     const updatedTicket = await prisma.ticket.update({
       where: { id: params.id },
       data,

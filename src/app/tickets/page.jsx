@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import TicketTable from '../../../components/tickets/ticket-table'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FcPlus } from "react-icons/fc";
 
 export default function Tickets(){
     const [tickets, setTickets] = useState([])
@@ -19,7 +20,7 @@ export default function Tickets(){
     }, [])
 
     function handleEdit(id){
-        console.log("Edit ticket:", id);
+        // console.log("Edit ticket:", id);
         router.push(`/tickets/${id}`)
     }
 
@@ -33,7 +34,7 @@ export default function Tickets(){
     return (
         <>
         <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Ticket List <Link href="/tickets/new" className="">Add Ticket</Link></h2>
+            <h2 className="text-xl font-semibold mb-4">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link></h2>
             <TicketTable tickets={tickets} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         </>

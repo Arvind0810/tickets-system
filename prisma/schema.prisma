@@ -32,12 +32,13 @@ model User {
 model Ticket {
   id         String   @id @default(uuid())
   name       String
-  email      String
   datetime   DateTime @default(now())
   service    String
   complaint  String
   department String
   priority   String
+  asignTo   String?
+  solution  String?
   closetime  DateTime?
   status     String   @default("Open")
   createdAt   DateTime @default(now())
