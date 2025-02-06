@@ -45,7 +45,7 @@ export default function EditTicketForm() {
     });
 
     if (response.ok) {
-      router.push("/");
+      router.push("/tickets");
     } else {
       alert("Error updating ticket");
     }

@@ -31,9 +31,9 @@ const DownloadButton = () => {
         const formattedStartTime = startDateTime.toTimeString().split(" ")[0]; // HH:mm:ss
         let closeDateTime = null
         let closeTime = null
-        if(ticket.closetie){
+        if(!ticket.closetie){
           closeDateTime = new Date(ticket.closetime);
-          closeTime = ticket.closetime?closeDateTime.toTimeString().split(" ")[0]:"-";
+          closeTime = closeDateTime.toTimeString().split(" ")[0];
         }else{
           closeTime = "-";
         }
