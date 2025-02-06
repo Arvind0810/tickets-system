@@ -19,13 +19,15 @@ export async function GET(req: Request) {
         },
       },
       select: {
-        id: true,
         name: true,
-        email: true,
         datetime: true,
         service: true,
-        complaint: true,
+        complaint:true,
+        department: true,
         priority: true,
+        asignTo: true,
+        solution: true,
+        closetime: true,
         status: true,
       },
     });

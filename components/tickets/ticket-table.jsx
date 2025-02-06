@@ -1,30 +1,56 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
 const TicketTable = ({ tickets, onEdit, onDelete }) => {
+  const [orderBy, setOrderBy] = useState("")
+  const [order, setOrder] = useState("")
+  const [records, setRecords] = useState(tickets)
+
+  useEffect(() => {
+    async function fetchRecords() {
+      const res = await fetch(`/api/tickets?orderby=${orderBy}&order=${order}`);
+      const data = await res.json();
+      setRecords(data);
+      }
+      fetchRecords();
+  }, [orderBy, order])
+
+  function handleShort(e, col){
+    e.preventDefault()
+    setOrderBy(col)
+    if(order == "" || order == "DESC"){
+      setOrder("ASC")
+    }else{
+      setOrder("DESC")
+    }
+    console.log(records);
+  }
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead className="bg-gray-200 text-gray-700">
           <tr>
-            <th className="py-2 px-4 text-left">Name</th>
-            <th className="py-2 px-4 text-left">Email</th>
-            <th className="py-2 px-4 text-left">Date & Time</th>
-            <th className="py-2 px-4 text-left">Service</th>
-            <th className="py-2 px-4 text-left">Complaint</th>
-            <th className="py-2 px-4 text-left">Priority</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'name')}>Name</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'email')}>Email</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'datetime')}>Date & Time</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'service')}>Service</th>
+            <th className="py-2 px-4 text-left" >Complaint</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'department')}>Department</th>
+            <th className="py-2 px-4 text-left" onClick={(e) => handleShort(e, 'priority')}>Priority</th>
             <th className="py-2 px-4 text-left">Status</th>
             <th className="py-2 px-4 text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-          {tickets.length > 0 ? (
-            tickets.map((ticket) => (
+          {records.length > 0 ? (
+            records.map((ticket) => (
               <tr key={ticket.id} className="border-b">
                 <td className="py-2 px-4">{ticket.name}</td>
                 <td className="py-2 px-4">{ticket.email}</td>
                 <td className="py-2 px-4">{new Date(ticket.datetime).toLocaleString()}</td>
                 <td className="py-2 px-4">{ticket.service}</td>
                 <td className="py-2 px-4">{ticket.complaint}</td>
+                <td className="py-2 px-4">{ticket.department}</td>
                 <td className="py-2 px-4 font-semibold text-center">
                   <span
                     className={`px-2 py-1 rounded ${

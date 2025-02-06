@@ -12,32 +12,55 @@ const DownloadButton = () => {
       alert("Please select a valid date range!");
       return;
     }
-
+  
     try {
       const response = await fetch(
         `/api/tickets/download?start=${startDate}&end=${endDate}`
       );
       const data = await response.json();
-
+  
       if (!data.length) {
         alert("No tickets found in this date range.");
         return;
       }
-
+  
+      // Process data to include separate date and time columns
+      const formattedData = data.map(ticket => {
+        const startDateTime = new Date(ticket.datetime); // Assuming ticket has startDateTime field
+        const formattedStartDate = startDateTime.toISOString().split("T")[0]; // YYYY-MM-DD
+        const formattedStartTime = startDateTime.toTimeString().split(" ")[0]; // HH:mm:ss
+        let closeDateTime = null
+        let closeTime = null
+        if(ticket.closetie){
+          closeDateTime = new Date(ticket.closetime);
+          closeTime = ticket.closetime?closeDateTime.toTimeString().split(" ")[0]:"-";
+        }else{
+          closeTime = "-";
+        }
+        ticket.datetime = undefined;
+        return {
+          ...ticket,
+          ticketDate: formattedStartDate,
+          ticketTime: formattedStartTime,
+          closetime: closeTime
+        };
+      });
+  
       // Convert data to Excel format
-      const ws = XLSX.utils.json_to_sheet(data);
+      const ws = XLSX.utils.json_to_sheet(formattedData);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Tickets");
-
+  
       // Create and download file
       XLSX.writeFile(wb, `tickets_${startDate}_to_${endDate}.xlsx`);
-
+  
       setShowModal(false); // Close modal
     } catch (error) {
       console.error("Download failed:", error);
       alert("Failed to download file!");
     }
   };
+  
 
   return (
     <div>
