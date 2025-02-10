@@ -48,12 +48,12 @@ export default function Navbar() {
           </button>
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-          <a href="/tickets" className="text-sm/6 font-semibold text-gray-900">
+          <Link href="/tickets" className="text-sm/6 font-semibold text-gray-900">
             Tickets
-          </a>
-          <a href="/users" className="text-sm/6 font-semibold text-gray-900">
+          </Link>
+          <Link href="/users" className="text-sm/6 font-semibold text-gray-900">
             Users
-          </a>
+          </Link>
           <DownloadButton />
         </PopoverGroup>
         
