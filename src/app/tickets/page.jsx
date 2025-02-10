@@ -33,8 +33,8 @@ export default function Tickets(){
     }
     return (
         <>
-        <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link>
+        <div className="p-6 w-6xl m-auto">
+            <h2 className="text-xl font-semibold my-4 text-white">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link>
             
             </h2>
             <TicketTable tickets={tickets} onEdit={handleEdit} onDelete={handleDelete} />

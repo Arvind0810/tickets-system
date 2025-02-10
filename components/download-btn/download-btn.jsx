@@ -23,31 +23,30 @@ const DownloadButton = () => {
         alert("No tickets found in this date range.");
         return;
       }
-  
-      // Process data to include separate date and time columns
-      const formattedData = data.map(ticket => {
-        const startDateTime = new Date(ticket.datetime); // Assuming ticket has startDateTime field
-        const formattedStartDate = startDateTime.toISOString().split("T")[0]; // YYYY-MM-DD
-        const formattedStartTime = startDateTime.toTimeString().split(" ")[0]; // HH:mm:ss
-        let closeDateTime = null
-        let closeTime = null
-        if(!ticket.closetie){
-          closeDateTime = new Date(ticket.closetime);
-          closeTime = closeDateTime.toTimeString().split(" ")[0];
-        }else{
-          closeTime = "-";
+      let newData = []
+      data.map(ticket => {
+        const createdDateTime = new Date(ticket.datetime)
+        let closeTime = "-"
+        if(ticket.closetime){
+          const closeDateTime = new Date(ticket.closetime);
+          closeTime = closeDateTime.toTimeString().split(" ")[0]
         }
-        ticket.datetime = undefined;
-        return {
-          ...ticket,
-          ticketDate: formattedStartDate,
-          ticketTime: formattedStartTime,
-          closetime: closeTime
-        };
-      });
-  
+        
+        newData.push({
+          "Ticket Date": createdDateTime.toISOString().split("T")[0],
+          "Ticket Time": createdDateTime.toTimeString().split(" ")[0],
+          "Close Time": closeTime,
+          "Name": ticket.name,
+          "Department": ticket.department,
+          "Service": ticket.service,
+          "Complaint": ticket.complaint,
+          "Solution": ticket.solution,
+          "Status": ticket.status
+        })
+      })
+      
       // Convert data to Excel format
-      const ws = XLSX.utils.json_to_sheet(formattedData);
+      const ws = XLSX.utils.json_to_sheet(newData);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, "Tickets");
   

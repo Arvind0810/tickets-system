@@ -37,7 +37,7 @@ export default function AddTicketForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-5 border rounded-lg shadow-md w-2xl m-auto">
+    <form onSubmit={handleSubmit} className="p-5 border rounded-lg shadow-md w-2xl m-auto bg-white mt-4">
       <h2 className="text-xl font-bold mb-4">Add New Ticket</h2>
       <InputField 
         label="Name"
@@ -58,7 +58,7 @@ export default function AddTicketForm() {
       <SelectField 
         label="Service Affected"
         name="service"
-        options={[{label: "Email", value:"Email"},{label: "Internet", value:"Internet"},{label: "Software", value:"Software"}]}
+        options={[{label: "Email", value:"Email"},{label: "Internet", value:"Internet"},{label: "Software", value:"Software"},{label: "Hardware", value:"Hardware"}]}
         value={formData.service}
         onChange={handleChange}
         error=""

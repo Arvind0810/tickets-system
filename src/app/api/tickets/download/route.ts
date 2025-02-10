@@ -21,17 +21,14 @@ export async function GET(req: Request) {
       select: {
         name: true,
         datetime: true,
-        service: true,
-        complaint:true,
-        department: true,
-        priority: true,
-        asignTo: true,
-        solution: true,
         closetime: true,
+        service: true,
+        department: true,
+        complaint:true,
+        solution: true,
         status: true,
       },
     });
-
     return NextResponse.json(tickets);
   } catch (error) {
     return NextResponse.json({ error: "Error fetching data" }, { status: 500 });
