@@ -42,9 +42,9 @@ export const TextAreaField = ({ label, name, placeholder, value, onChange, error
 };
 
 // Select Field
-export const SelectField = ({ label, name, options, value, onChange, error }) => {
+export const SelectField = ({ label, name, options, value, onChange, error, className }) => {
   return (
-    <div className="mb-4">
+    <div className={`mb-4 ${className}`}>
       <label htmlFor={name} className="block text-sm font-medium text-gray-700">{label}</label>
       <select
         id={name}

@@ -1,19 +1,31 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import { SelectField } from "../form-fields";
 
 const TicketTable = ({ tickets, onEdit, onDelete }) => {
   const [orderBy, setOrderBy] = useState("")
   const [order, setOrder] = useState("")
   const [records, setRecords] = useState(tickets)
+  const [filter, setFilter] = useState('')
+
+  function handleChange(e){
+    setFilter(e.target.value)
+  }
 
   useEffect(() => {
     async function fetchRecords() {
-      const res = await fetch(`/api/tickets?orderby=${orderBy}&order=${order}`);
-      const data = await res.json();
-      setRecords(data);
+      if(filter){
+        const res = await fetch(`/api/tickets?orderby=${orderBy}&order=${order}&filter=${filter}`);
+        const data = await res.json();
+        setRecords(data);
+      }else{
+        const res = await fetch(`/api/tickets?orderby=${orderBy}&order=${order}`);
+        const data = await res.json();
+        setRecords(data);
+      }
       }
       fetchRecords();
-  }, [orderBy, order])
+  }, [orderBy, order, filter])
 
   function handleShort(e, col){
     e.preventDefault()
@@ -27,6 +39,15 @@ const TicketTable = ({ tickets, onEdit, onDelete }) => {
   }
   return (
     <div className="overflow-x-auto">
+      <SelectField 
+        label="Filter"
+        name="filter"
+        options={[{label: "Pending", value:"Pending"},{label: "In Progress", value:"In Progress"},{label: "Closed", value:"Closed"},{label: "Open", value:"Open"}]}
+        value={filter}
+        onChange={handleChange}
+        error=""
+        className="w-2xl"
+      />
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead className="bg-gray-200 text-gray-700">
           <tr>

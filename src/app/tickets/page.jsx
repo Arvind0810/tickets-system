@@ -1,5 +1,5 @@
 'use client'
-import TicketList from "../../../components/tickets/ticket-list";
+
 import { useState, useEffect } from "react";
 import TicketTable from '../../../components/tickets/ticket-table'
 import Link from "next/link";
@@ -12,11 +12,12 @@ export default function Tickets(){
 
     useEffect(() => {
         async function fetchTickets() {
-        const res = await fetch("/api/tickets");
-        const data = await res.json();
-        setTickets(data);
+            const res = await fetch("/api/tickets");
+            const data = await res.json();
+            setTickets(data);
         }
         fetchTickets();
+        
     }, [])
 
     function handleEdit(id){
@@ -30,11 +31,12 @@ export default function Tickets(){
             setTickets(tickets.filter((ticket) => ticket.id !== id));
         }
     }
-
     return (
         <>
         <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link></h2>
+            <h2 className="text-xl font-semibold mb-4">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link>
+            
+            </h2>
             <TicketTable tickets={tickets} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         </>

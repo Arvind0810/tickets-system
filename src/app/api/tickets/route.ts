@@ -7,6 +7,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const orderby = searchParams.get("orderby");
     let order = searchParams.get("order") as "asc" | "desc" | null;
+    let filter = searchParams.get("filter")?searchParams.get("filter"):"";
 
     // Validate `order` to be either "asc" or "desc", default to "asc"
     order = order === "desc" ? "desc" : "asc";
@@ -19,6 +20,15 @@ export async function GET(req: Request) {
       orderObject = { [orderby]: order } as Prisma.TicketOrderByWithRelationInput;
     }
 
+    if(filter){
+      const tickets = await prisma.ticket.findMany({
+        where: {
+          status: filter
+        }
+      });
+  
+      return NextResponse.json(tickets);  
+    }
     const tickets = await prisma.ticket.findMany({
       orderBy: orderObject, // ✅ Now correctly typed for Prisma
     });
