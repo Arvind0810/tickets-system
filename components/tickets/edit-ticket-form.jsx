@@ -129,7 +129,7 @@ export default function EditTicketForm() {
       <SelectField 
         label="Status"
         name="status"
-        options={[{label: "Pending", value:"Pending"},{label: "In Progress", value:"In Progress"},{label: "Closed", value:"Closed"},{label: "Open", value:"Open"}]}
+        options={[{label: "In Progress", value:"In Progress"},{label: "Closed", value:"Closed"},{label: "Open", value:"Open"}]}
         value={formData.status}
         onChange={handleChange}
         error=""

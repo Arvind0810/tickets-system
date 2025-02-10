@@ -2,6 +2,7 @@
 import { InputField, SelectField, TextAreaField, DateTimePicker } from "../form-fields"
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AddTicketForm() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function AddTicketForm() {
     asignTo: "",
     status: "Open",
   });
+  const router = useRouter();
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,6 +30,7 @@ export default function AddTicketForm() {
 
     if (response.ok) {
       alert("Ticket added successfully!");
+      router.push("/tickets");
     } else {
       alert("Error adding ticket");
     }

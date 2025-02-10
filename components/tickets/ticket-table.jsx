@@ -42,7 +42,7 @@ const TicketTable = ({ tickets, onEdit, onDelete }) => {
       <SelectField 
         label="Filter"
         name="filter"
-        options={[{label: "Pending", value:"Pending"},{label: "In Progress", value:"In Progress"},{label: "Closed", value:"Closed"},{label: "Open", value:"Open"}]}
+        options={[{label: "In Progress", value:"In Progress"},{label: "Closed", value:"Closed"},{label: "Open", value:"Open"}]}
         value={filter}
         onChange={handleChange}
         error=""
