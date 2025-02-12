@@ -5,3 +5,7 @@ export default function NewTicket(){
         <AddTicketForm />
     )
 }
+
+export const metadata = {
+    title: "Add New Ticket"
+  }

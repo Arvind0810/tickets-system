@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FcPlus } from "react-icons/fc";
 
+
 export default function Tickets(){
     const [tickets, setTickets] = useState([])
     const router = useRouter()

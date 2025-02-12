@@ -21,6 +21,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <title>Ticketing Tools</title>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Navbar />
         {children}

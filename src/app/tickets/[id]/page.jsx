@@ -5,3 +5,7 @@ export default function EditTicket(){
         <EditTicketForm />
     )
 }
+
+export const metadata = {
+    title: "Edit Ticket"
+  }

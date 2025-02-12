@@ -1,5 +1,10 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Head from "next/head";
+
+export const metadata = {
+  title: "Ticketing Tools App"
+}
 
 export default function Home() {
   return (
