@@ -21,7 +21,7 @@ export default function UserList() {
   }, []);
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-5 border rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto mt-10 p-5 border rounded-lg shadow-md bg-white">
       <h2 className="text-xl font-bold mb-4">User List</h2>
 
       {loading ? (

@@ -32,9 +32,9 @@ model User {
 }
 
 model Ticket {
-  id         String   @id @default(uuid())
+  id         Int    @id @default(autoincrement())
   name       String
-  datetime   DateTime @default(now())
+  datetime   DateTime?
   service    String
   complaint  String
   department String

@@ -14,6 +14,7 @@ export default function AddTicketForm() {
     priority: "Medium",
     asignTo: "",
     status: "Open",
+    
   });
   const router = useRouter();
 
