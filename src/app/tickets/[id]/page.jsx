@@ -1,4 +1,4 @@
-import EditTicketForm from "../../../../components/tickets/edit-ticket-form";
+import EditTicketForm from "../../../components/tickets/edit-ticket-form";
 
 export default function EditTicket(){
     return (

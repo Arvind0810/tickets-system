@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import TicketTable from '../../../components/tickets/ticket-table'
+import TicketTable from '../../components/tickets/ticket-table'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FcPlus } from "react-icons/fc";

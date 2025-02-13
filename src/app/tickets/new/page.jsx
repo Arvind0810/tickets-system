@@ -1,4 +1,4 @@
-import AddTicketForm from "../../../../components/tickets/add-ticket-form";
+import AddTicketForm from "../../../components/tickets/add-ticket-form";
 
 export default function NewTicket(){
     return (
