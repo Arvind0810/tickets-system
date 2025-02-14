@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
 import { Prisma } from "@prisma/client"; // ✅ Import Prisma types
+import { getUser } from "../../../lib/auth";
 
 export async function GET(req: Request) {
   try {
+    const user = getUser()
+
     const { searchParams } = new URL(req.url);
     const orderby = searchParams.get("orderby");
     let order = searchParams.get("order") as "asc" | "desc" | null;
@@ -23,13 +26,15 @@ export async function GET(req: Request) {
     if(filter){
       const tickets = await prisma.ticket.findMany({
         where: {
-          status: filter
+          authorId: user.userId,
+          status: filter,
         }
       });
   
       return NextResponse.json(tickets);  
     }
     const tickets = await prisma.ticket.findMany({
+      where: { authorId: user.userId, },
       orderBy: orderObject, // ✅ Now correctly typed for Prisma
     });
 
@@ -44,6 +49,7 @@ export async function POST(req: Request) {
   try {
     const data = await req.json();
     data.datetime = new Date(data.datetime);
+    // data.authorId = Number(data.authorId)
     const ticket = await prisma.ticket.create({ data });
 
     return NextResponse.json(ticket, { status: 201 });

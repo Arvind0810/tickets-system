@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "../../../../lib/prisma";
+import { getUser } from "../../../../lib/auth";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const start = searchParams.get("start");
   const end = searchParams.get("end");
+  const user = getUser()
 
   if (!start || !end) {
     return NextResponse.json({ error: "Invalid date range" }, { status: 400 });
@@ -17,6 +19,7 @@ export async function GET(req: Request) {
           gte: new Date(start),
           lte: new Date(end),
         },
+        authorId: user.userId
       },
       select: {
         name: true,

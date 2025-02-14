@@ -46,7 +46,7 @@ const TicketTable = ({ tickets, onEdit, onDelete }) => {
         value={filter}
         onChange={handleChange}
         error=""
-        className="w-2xl"
+        className="w-2xl bg-white px-6 py-2 mt-2 rounded"
       />
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead className="bg-gray-200 text-gray-700">

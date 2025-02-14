@@ -1,7 +1,7 @@
 "use client";
 import { InputField, SelectField, TextAreaField, DateTimePicker } from "../form-fields"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AddTicketForm() {
@@ -16,13 +16,34 @@ export default function AddTicketForm() {
     status: "Open",
     
   });
+  const [user, setUser] = useState(null)
   const router = useRouter();
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/auth/user", { credentials: "include" });
+        const data = await res.json();
+        
+        if (res.ok) {
+          setUser(data);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setUser(null);
+      }
+    }
 
+    fetchUser();
+  }, []);
+  // console.log(user)
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    formData.authorId = user.userId
     const response = await fetch("/api/tickets", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

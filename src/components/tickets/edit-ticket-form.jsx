@@ -8,6 +8,7 @@ import { formatDateTimeLocal, convertDateTimeLocal } from './add-ticket-form'
 export default function EditTicketForm() {
   const router = useRouter();
   const { id } = useParams();
+  const [user, setUser] = useState(null)
   const [formData, setFormData] = useState({
     name: "",
     datetime:"",
@@ -20,6 +21,26 @@ export default function EditTicketForm() {
     closetime: "",
     status:"",
   });
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch("/api/auth/user", { credentials: "include" });
+        const data = await res.json();
+        
+        if (res.ok) {
+          setUser(data);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setUser(null);
+      }
+    }
+
+    fetchUser();
+  }, []);
   
   useEffect(() => {
     async function fetchTicket() {
@@ -38,6 +59,7 @@ export default function EditTicketForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    formData.authorId = user.userId
     const response = await fetch(`/api/tickets/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

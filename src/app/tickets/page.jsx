@@ -9,14 +9,26 @@ import { FcPlus } from "react-icons/fc";
 
 export default function Tickets(){
     const [tickets, setTickets] = useState([])
+    const [user, setUser] = useState(null)
     const router = useRouter()
 
     useEffect(() => {
+        async function fetchUser() {
+            const res = await fetch("/api/auth/user");
+            const data = await res.json();
+            if (!res.ok) return router.push("/login");
+            setUser(data);
+        }
+        fetchUser();
+    },[])
+    useEffect(() => {
+        
         async function fetchTickets() {
             const res = await fetch("/api/tickets");
             const data = await res.json();
             setTickets(data);
         }
+
         fetchTickets();
         
     }, [])
@@ -34,10 +46,10 @@ export default function Tickets(){
     }
     return (
         <>
+        
         <div className="p-6 w-6xl m-auto">
-            <h2 className="text-xl font-semibold my-4 text-white">Ticket List <Link href="/tickets/new" className=""><FcPlus /></Link>
-            
-            </h2>
+            <h2 className="text-xl font-semibold my-4 text-white">Ticket List</h2>
+            <Link href="/tickets/new" className=""><FcPlus /></Link>
             <TicketTable tickets={tickets} onEdit={handleEdit} onDelete={handleDelete} />
         </div>
         </>
