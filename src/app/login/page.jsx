@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -34,6 +35,7 @@ export default function Login() {
         <input type="email" placeholder="Email" className="border p-2 w-full mb-2" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input type="password" placeholder="Password" className="border p-2 w-full mb-2" value={password} onChange={(e) => setPassword(e.target.value)} required />
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
+        <p>Dont have an account! <Link href="/signup" >Sign Up Now</Link></p>
       </form>
     </div>
   );
